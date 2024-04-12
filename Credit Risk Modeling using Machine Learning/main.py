@@ -26,3 +26,54 @@ a2 = pd.read_excel("dataset/case_study2.xlsx")
 df1 = a1.copy()
 df2 = a2.copy()
 
+# Remove nulls
+df1 = df1.loc[df1['Age_Oldest_TL'] != -99999]
+
+colunms_to_be_removed = []
+for i in df2.columns:
+    if df2.loc[df2[i] == -99999].shape[0] > 10000:
+        colunms_to_be_removed.append(i)
+        
+df2 = df2.drop(colunms_to_be_removed, axis=1)
+
+for i in df2.columns:
+    df2 = df2.loc[df2[i] != -99999]
+
+# Checking common column name
+for i in df1.columns:
+    if i in df2.columns:
+        print(i)
+    
+# Merge the two dataframes
+df = pd.merge(df1, df2, how="inner", left_on=['PROSPECTID'], right_on=['PROSPECTID'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
